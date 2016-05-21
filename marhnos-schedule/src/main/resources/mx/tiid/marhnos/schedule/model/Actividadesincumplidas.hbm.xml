@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 25/04/2016 08:33:30 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="mx.tiid.marhnos.schedule.model.Actividadesincumplidas" table="actividadesincumplidas" catalog="marhnos_scheduler">
+        <id name="idActividadIncumplida" type="java.lang.Integer">
+            <column name="IdActividadIncumplida" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="reportes" class="mx.tiid.marhnos.schedule.model.Reportes" fetch="select">
+            <column name="IdReporte" not-null="true" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="Nombre" length="45" />
+        </property>
+        <property name="fechaCompromiso" type="string">
+            <column name="FechaCompromiso" length="45" />
+        </property>
+        <property name="area" type="string">
+            <column name="Area" length="45" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 25/04/2016 08:33:30 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="mx.tiid.marhnos.schedule.model.Actividadesasignadas" table="actividadesasignadas" catalog="marhnos_scheduler">
+        <id name="idActividadAsignada" type="java.lang.Integer">
+            <column name="IdActividadAsignada" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="causasincumplimiento" class="mx.tiid.marhnos.schedule.model.Causasincumplimiento" fetch="select">
+            <column name="IdCausaIncumplimiento" not-null="true" />
+        </many-to-one>
+        <many-to-one name="actividades" class="mx.tiid.marhnos.schedule.model.Actividades" fetch="select">
+            <column name="IdActividad" not-null="true" />
+        </many-to-one>
+        <property name="fechaAsignada" type="timestamp">
+            <column name="FechaAsignada" length="19" />
+        </property>
+        <property name="fechaCompromiso" type="timestamp">
+            <column name="FechaCompromiso" length="19" />
+        </property>
+        <property name="fechaActualizada" type="timestamp">
+            <column name="FechaActualizada" length="19" />
+        </property>
+        <property name="activo" type="java.lang.Boolean">
+            <column name="Activo" />
+        </property>
+        <property name="comentario" type="string">
+            <column name="Comentario" length="16777215" />
+        </property>
+        <property name="numeroSemana" type="java.lang.Integer">
+            <column name="NumeroSemana" />
+        </property>
+        <property name="anio" type="java.lang.Integer">
+            <column name="Anio" />
+        </property>
+    </class>
+</hibernate-mapping>

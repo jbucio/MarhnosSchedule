@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 25/04/2016 08:33:30 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="mx.tiid.marhnos.schedule.model.Areas" table="areas" catalog="marhnos_scheduler">
+        <id name="idArea" type="java.lang.Integer">
+            <column name="IdArea" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="Nombre" length="45" />
+        </property>
+        <property name="activo" type="java.lang.Boolean">
+            <column name="Activo" />
+        </property>
+        <set name="usuarioses" table="usuarios" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="IdArea" not-null="true" />
+            </key>
+            <one-to-many class="mx.tiid.marhnos.schedule.model.Usuarios" />
+        </set>
+    </class>
+</hibernate-mapping>

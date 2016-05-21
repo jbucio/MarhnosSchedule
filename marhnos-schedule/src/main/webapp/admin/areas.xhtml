@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:growl id="growl" life="2000" />
+
+		<p:commandButton value="Agregar" icon="fa fa-plus" type="button"
+			onclick="PF('dlgAreas').show();" />
+
+
+
+		<!-- Detalle -->
+
+		<p:dataTable var="area" value="#{areaBean.listAreas}">
+			<p:column headerText="Id" style="width:15%;">
+				<h:outputText value="#{area.idArea}" />
+			</p:column>
+
+			<p:column headerText="Nombre">
+				<h:outputText value="#{area.nombre}" />
+			</p:column>
+		</p:dataTable>
+
+		<!--  -->
+
+		<p:dialog id="dlgAreas" widgetVar="dlgAreas" header="Agregar Area"
+			showEffect="clip" hideEffect="clip" height="auto" width="auto"
+			position="center, center">
+
+			<h:panelGrid id="eventDetailsUpdate" columns="2">
+
+				<p:outputLabel for="detalleUpdate" value="Nombre:" />
+				<p:inputText id="detalleUpdate" />
+
+				<p:commandButton id="btnAdd" value="Agregar"
+					actionListener="#{planillaSemanalBean.updateActividad}"
+					icon="ui-icon-check">
+				</p:commandButton>
+
+			</h:panelGrid>
+
+
+
+		</p:dialog>
+
+	</h:form>
+</h:body>
+
+</html>

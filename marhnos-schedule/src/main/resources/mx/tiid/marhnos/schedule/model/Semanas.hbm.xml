@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 25/04/2016 08:33:30 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="mx.tiid.marhnos.schedule.model.Semanas" table="semanas" catalog="marhnos_scheduler">
+        <id name="idSemana" type="java.lang.Integer">
+            <column name="IdSemana" />
+            <generator class="identity" />
+        </id>
+        <property name="numeroSemana" type="java.lang.Integer">
+            <column name="NumeroSemana" />
+        </property>
+        <property name="fechaInicio" type="timestamp">
+            <column name="FechaInicio" length="19" />
+        </property>
+        <property name="fechaFin" type="timestamp">
+            <column name="FechaFin" length="19" />
+        </property>
+        <property name="anio" type="java.lang.Integer">
+            <column name="Anio" />
+        </property>
+    </class>
+</hibernate-mapping>
