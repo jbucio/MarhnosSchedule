@@ -1,5 +1,7 @@
 package mx.tiid.marhnos.schedule.bean;
 
+import java.util.Random;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 
@@ -13,9 +15,16 @@ import org.primefaces.model.chart.LineChartModel;
 public class MasterDetailChartLineBean {
 
 	private LineChartModel lineModel2;
+	
+	private int max = 100;
+
+	private int min = 0;
+	
+	private Random random;
 
 	@PostConstruct
 	public void init() {
+		random = new Random();
 		createLineModels();
 	}
 
@@ -26,6 +35,7 @@ public class MasterDetailChartLineBean {
 	private void createLineModels() {
 
 		lineModel2 = initCategoryModel();
+		lineModel2.setAnimate(true);
 		lineModel2.setTitle("PPC Acumulado");
 		lineModel2.setLegendPosition("e");
 		lineModel2.setShowPointLabels(true);
@@ -41,11 +51,11 @@ public class MasterDetailChartLineBean {
 
 		ChartSeries boys = new ChartSeries();
 		boys.setLabel("Real");
-		boys.set("Semana 1", 50);
-		boys.set("Semana 2", 80);
-		boys.set("Semana 3", 70);
-		boys.set("Semana 4", 65);
-		boys.set("Semana 5", 85);
+		boys.set("Semana 1", random.nextInt((max - min) + 1) + min);
+		boys.set("Semana 2", random.nextInt((max - min) + 1) + min);
+		boys.set("Semana 3", random.nextInt((max - min) + 1) + min);
+		boys.set("Semana 4", random.nextInt((max - min) + 1) + min);
+		boys.set("Semana 5", random.nextInt((max - min) + 1) + min);
 		boys.setXaxis(AxisType.X);
 
 		ChartSeries girls = new ChartSeries();

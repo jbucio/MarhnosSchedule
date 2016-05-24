@@ -5,7 +5,6 @@ import java.util.Random;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.primefaces.model.chart.Axis;
@@ -38,8 +37,32 @@ public class MasterDetailPoll implements Serializable {
 
 	private int min = 0;
 
+	private boolean masterDetailView = true;
+
+	private boolean masterDetailMonthView = false;
+
+	private boolean masterDetailCalendar = false;
+
+	public boolean isMasterDetailMonthView() {
+		return masterDetailMonthView;
+	}
+
+	public void setMasterDetailMonthView(boolean masterDetailMonthView) {
+		this.masterDetailMonthView = masterDetailMonthView;
+	}
+
+	public boolean isMasterDetailView() {
+		return masterDetailView;
+	}
+
+	public void setMasterDetailView(boolean masterDetailView) {
+		this.masterDetailView = masterDetailView;
+	}
+
 	@PostConstruct
 	public void init() {
+		ppc = random.nextInt((100 - 37) + 1) + 37;
+		area = areas[0];
 		random = new Random();
 		createBarModels();
 	}
@@ -109,12 +132,36 @@ public class MasterDetailPoll implements Serializable {
 			area = areas[position];
 			position++;
 		} else {
-			position = 0;
 
-			area = areas[position];
-			position++;
+			if (position < 5) {
+				masterDetailView = false;
+				masterDetailMonthView = true;
+				position++;
+			} else if (position < 6) {
+				masterDetailView = false;
+				masterDetailMonthView = false;
+				masterDetailCalendar = true;
+				position++;
+			} else {
+
+				masterDetailView = true;
+				masterDetailMonthView = false;
+				masterDetailCalendar = false;
+				position = 0;
+
+				area = areas[position];
+				position++;
+			}
 		}
 
+	}
+
+	public boolean isMasterDetailCalendar() {
+		return masterDetailCalendar;
+	}
+
+	public void setMasterDetailCalendar(boolean masterDetailCalendar) {
+		this.masterDetailCalendar = masterDetailCalendar;
 	}
 
 	public int getPpc() {

@@ -10,18 +10,80 @@
 
 <h:head>
 	<h:outputStylesheet name="grid/grid.css" library="primefaces" />
+	<script type="text/javascript">
+		PrimeFaces.locales['es'] = {
+			closeText : 'Cerrar',
+			prevText : 'Anterior',
+			nextText : 'Siguiente',
+			monthNames : [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo',
+					'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre',
+					'Noviembre', 'Diciembre' ],
+			monthNamesShort : [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+					'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
+			dayNames : [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves',
+					'Viernes', 'Sábado' ],
+			dayNamesShort : [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ],
+			dayNamesMin : [ 'D', 'L', 'M', 'X', 'J', 'V', 'S' ],
+			weekHeader : 'Semana',
+			firstDay : 1,
+			isRTL : false,
+			showMonthAfterYear : false,
+			yearSuffix : '',
+			timeOnlyTitle : 'Sólo hora',
+			timeText : 'Tiempo',
+			hourText : 'Hora',
+			minuteText : 'Minuto',
+			secondText : 'Segundo',
+			currentText : 'Fecha actual',
+			ampm : false,
+			month : 'Mes',
+			week : 'Semana',
+			day : 'Día',
+			allDayText : 'Todo el día'
+		};
+	</script>
+
+	<style type="text/css">
+.act1 {
+	background: #CC0000; /*Rojo- Actividad Prioridad Alta*/
+}
+</style>
+
 </h:head>
 
 <h:body>
 
 	<h:form>
 
+		<p:poll interval="10" listener="#{masterDetailPoll.areaPosition}"
+			update=":masterDetail,:masterDetailMonth,:masterDetailCalendar" />
+	</h:form>
+
+	<!-- masterDetailCalendar -->
+	<h:form id="masterDetailCalendar">
+
 		<div class="ui-grid">
 
+			<!--  -->
 
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-3"></div>
+				<div class="ui-grid-col-8">
 
+					<p:schedule rendered="#{masterDetailPoll.masterDetailCalendar}" style="width:800px;" value="#{scheduleBean.eventModel}"
+						locale="es" />
 
+				</div>
+				<div class="ui-grid-col-2"></div>
+			</div>
 
+		</div>
+	</h:form>
+
+	<!-- masterDetailMonth -->
+	<h:form id="masterDetailMonth">
+
+		<div class="ui-grid">
 
 			<!--  -->
 
@@ -29,8 +91,78 @@
 				<div class="ui-grid-col-12">
 					<center>
 						<h1>
-							AREA:
-							<h:outputText id="txt_count" value="#{masterDetailPoll.area}" />
+
+							<h:outputText
+								rendered="#{masterDetailPoll.masterDetailMonthView}"
+								id="txt_count" value="Reporte del Mes" />
+						</h1>
+					</center>
+				</div>
+			</div>
+
+
+
+			<!--  -->
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-3">
+
+					<p:chart rendered="#{masterDetailPoll.masterDetailMonthView}"
+						type="metergauge" model="#{masterDetailMonthBean.meterGaugeModel}"
+						style="width:400px;height:250px" />
+
+				</div>
+
+				<div class="ui-grid-col-3">
+
+					<p:chart rendered="#{masterDetailPoll.masterDetailMonthView}"
+						id="bar2" type="bar" model="#{masterDetailMonthBean.barModel}"
+						responsive="true" style="height:300px;" />
+
+				</div>
+
+				<div class="ui-grid-col-6">
+					<p:chart rendered="#{masterDetailPoll.masterDetailMonthView}"
+						type="line" model="#{masterDetailChartLineBean.lineModel2}"
+						style="height:300px;" />
+				</div>
+			</div>
+
+
+			<!--  -->
+
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-6">
+
+					<p:chart rendered="#{masterDetailPoll.masterDetailMonthView}"
+						type="line" model="#{masterDetailChartAreaBean.areaModel}"
+						style="height:300px" />
+
+				</div>
+
+
+
+				<div class="ui-grid-col-6"></div>
+			</div>
+
+
+		</div>
+	</h:form>
+
+	<!-- masterDetail -->
+
+	<h:form id="masterDetail">
+		<div class="ui-grid">
+
+			<!--  -->
+
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-12">
+					<center>
+						<h1>
+
+							<h:outputText
+								rendered="#{masterDetailPoll.masterDetailView == true}"
+								id="txt_count" value="AREA:#{masterDetailPoll.area}" />
 						</h1>
 					</center>
 				</div>
@@ -41,17 +173,38 @@
 			<div class="ui-grid-row">
 				<div class="ui-grid-col-6">
 
-					<p:chart id="bar2" type="bar" model="#{masterDetailPoll.barModel}"
+					<p:chart rendered="#{masterDetailPoll.masterDetailView == true}"
+						id="bar2" type="bar" model="#{masterDetailPoll.barModel}"
 						responsive="true" style="height:300px;" />
 
 
 				</div>
 
 				<div class="ui-grid-col-6">
-					<p:fieldset legend="PPC Cumplido" style="margin-bottom:20px">
-						<h:panelGrid id="ppcDiario" columns="1"
+					<p:fieldset rendered="#{masterDetailPoll.masterDetailView == true}"
+						legend="PPC Cumplido" style="margin-bottom:20px">
+						<h:panelGrid id="ppcDiario" columns="2"
 							style="text-aling: center;font-weight: 900;font-size: 100px">
 							<h:outputText value="#{masterDetailPoll.ppc}%" />
+
+
+							<c:choose>
+								<c:when test="#{masterDetailPoll.ppc > 80}">
+									<h:graphicImage value="../img/happy-emoji.jpg"
+										style="width: 200px; height: 200px;" />
+								</c:when>
+								<c:when test="#{masterDetailPoll.ppc > 50}">
+									<h:graphicImage value="../img/worried-emoji.jpg"
+										style="width: 200px; height: 200px;" />
+								</c:when>
+								<c:when test="#{masterDetailPoll.ppc >= 0}">
+									<h:graphicImage value="../img/furious-emoji.jpg"
+										style="width: 200px; height: 200px;" />
+								</c:when>
+
+
+
+							</c:choose>
 						</h:panelGrid>
 					</p:fieldset>
 				</div>
@@ -64,25 +217,21 @@
 			<div class="ui-grid-row">
 
 				<div class="ui-grid-col-6">
-					<p:chart type="line"
+					<p:chart rendered="#{masterDetailPoll.masterDetailView == true}"
+						id="lineChart" type="line"
 						model="#{masterDetailChartLineBean.lineModel2}"
 						style="height:300px;" />
 				</div>
 
 				<div class="ui-grid-col-6">
-					<p:chart type="bar" model="#{masterDetailChartBarBean.barModel}"
+					<p:chart rendered="#{masterDetailPoll.masterDetailView == true}"
+						type="bar" model="#{masterDetailChartBarBean.barModel}"
 						responsive="true" style="height:300px;" />
 				</div>
 
 			</div>
 
-
-
 		</div>
-
-
-		<p:poll interval="5" listener="#{masterDetailPoll.areaPosition}"
-			update="txt_count,bar2,ppcDiario" />
 
 	</h:form>
 </h:body>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+	<style type="text/css">
+</style>
+</h:head>
+
+<h:body>
+	<div class="ui-grid ui-grid-responsive">
+
+		<div class="ui-grid-row">
+
+			<div class="ui-grid-col-1"></div>
+
+			<div class="ui-grid-col-14">
+				<h:form>
+					<p:growl id="growl" life="2000" />
+
+					
+					<p:commandButton value="#{menuTablero.tituloContrato}"
+						id="withIcon1" actionListener="#{menuTablero.buttonAction}"
+						update="growl" icon="ui-icon-disk" />
+
+					<p:commandButton value="#{menuTablero.tituloCompras}"
+						id="withIcon2" actionListener="#{menuTablero.buttonAction1}"
+						update="growl" icon="ui-icon-disk" />
+
+					<p:commandButton value="#{menuTablero.tituloAdministra}"
+						id="withIcon3" actionListener="#{menuTablero.buttonAction2}"
+						update="growl" icon="ui-icon-disk" />
+
+					<p:commandButton value="#{menuTablero.tituloSeguridad}"
+						id="withIcon4" actionListener="#{menuTablero.buttonAction3}"
+						update="growl" icon="ui-icon-disk" />
+
+
+				</h:form>
+			</div>
+
+			<div class="ui-grid-col-1"></div>
+		</div>
+
+	</div>
+</h:body>
+
+</html>
